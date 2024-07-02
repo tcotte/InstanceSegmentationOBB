@@ -15,12 +15,14 @@ batch_size = 32
 
 train_dataset = MnistBoundingBoxes(
     folder_path=r"C:\Users\tristan_cotte\PycharmProjects\InstanceSegmentationOBB\mnist_detection\dataset\train",
+    from_npy=False,
     transforms=None)
 train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
                                                shuffle=True, num_workers=2)
 
 test_dataset = MnistBoundingBoxes(
     folder_path=r"C:\Users\tristan_cotte\PycharmProjects\InstanceSegmentationOBB\mnist_detection\dataset\val",
+    from_npy=False,
     transforms=None)
 test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size,
                                               shuffle=False, num_workers=2)
@@ -62,9 +64,11 @@ if __name__ == "__main__":
 
             output_prob = outputs[..., 0]  # Shape: (batch_size, grid_size, grid_size)
             labels_prob = labels[..., 0]
-            # sig_output_prob = torch.sigmoid(output_prob)
+            # sig_output_prob = torch.sigmoid(output_prob
+
 
             loss_pred = loss_prediction(output_prob, labels_prob)
+
 
             output_bboxes = outputs[..., 1:5]
             label_bboxes = labels[..., 1:5]
